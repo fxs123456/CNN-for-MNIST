@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>MNIST Pytorch</title>
+	<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+	<style type="text/css">
+	@import url("../static/style.css");
+    </style>
+</head>
+
+<body>
+		<h1 id="Title">
+			Handwritten Number Recognition</h1>
+		
+		<div class="centered">
+			<canvas id="canvas" width="128" height="128"></canvas>
+		</div>
+
+		<div class="bt">
+			<input type="button" class="myButton" value="Predict" style="">
+			<input type="button" id="clearButton" value="Clear" style="">
+		</div>
+
+		<div class="centered">
+			<h1 id="result"></h1>
+		</div>
+		<div class = "prob">
+		<h2 id = "prob1"></h2>
+		<h2 id = "prob2"></h2>
+		<h2 id = "prob3"></h2>
+		</div>
+<div align="right", id = "info">
+	data source :
+	<a href="http://yann.lecun.com/exdb/mnist/", style="color: #807F7D;">
+	http://yann.lecun.com/exdb/mnist
+	</a>
+</div>
+
+<div id="mySidenav" class="sidenav">
+	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+<div  style="width:65%;" align = "right">
+<img src="https://raw.githubusercontent.com/fxs123456/-/master/Digraph.gv/Digraph.gv.png" height = "790px" width="650px" >
+</div>
+<div  style="width:35%;" >
+	<pre id = "net">
+	CNN(
+		(layer1): Sequential(
+			(0): Conv2d(1, 16, kernel_size=(3, 3), stride=(1, 1))
+			(1): BatchNorm2d(16, eps=1e-05, momentum=0.1, 
+			affine=True, track_running_stats=True)
+			(2): ReLU(inplace=True)
+		)
+		(layer2): Sequential(
+			(0): Conv2d(16, 32, kernel_size=(3, 3), stride=(1, 1))
+			(1): BatchNorm2d(32, eps=1e-05, momentum=0.1, 
+			affine=True, track_running_stats=True)
+			(2): ReLU(inplace=True)
+			(3): MaxPool2d(kernel_size=2, stride=2, 
+			padding=0, dilation=1, ceil_mode=False)
+		)
+		(layer3): Sequential(
+			(0): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1))
+			(1): BatchNorm2d(64, eps=1e-05, momentum=0.1, 
+			affine=True, track_running_stats=True)
+			(2): ReLU(inplace=True)
+		)
+		(layer4): Sequential(
+			(0): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1))
+			(1): BatchNorm2d(128, eps=1e-05, momentum=0.1, 
+			affine=True, track_running_stats=True)
+			(2): ReLU(inplace=True)
+			(3): MaxPool2d(kernel_size=2, stride=2, 
+			padding=0, dilation=1, ceil_mode=False)
+		)
+		(fc): Sequential(
+			(0): Linear(in_features=2048, out_features=1024, bias=True)
+			(1): ReLU(inplace=True)
+			(2): Linear(in_features=1024, out_features=128, bias=True)
+			(3): ReLU(inplace=True)
+			(4): Linear(in_features=128, out_features=10, bias=True)
+		)
+	)
+	</pre>
+	</div>
+</div>
+
+  <div id="main">
+	
+	<span style="font-size:18px;cursor:pointer;position:absolute;
+	top: 20px; 
+	left: 20px;
+	font-family: 'Open Sans', Helvetica;
+	color: #807F7D;" onclick="openNav()">&#9776; net info</span>
+  </div>
+  <script type="text/javascript">
+	/*打开侧栏，修改侧栏宽度，主体左跨度、背景透明度*/
+		function openNav() {
+			document.getElementById("mySidenav").style.width = "100%";
+		document.getElementById("main").style.marginLeft = "250px";
+		}
+		/*关闭侧栏，恢复原始侧栏宽度，主体左跨度、背景透明度*/
+		function closeNav() {
+		document.getElementById("mySidenav").style.width = "0";
+		document.getElementById("main").style.marginLeft= "0";
+		}
+	</script>
+
+  		<script src="{{url_for('static',filename='jquery-3.2.0.min.js')}}"></script>
+	    <script src="{{url_for('static',filename='index.js')}}"></script>
+
+	    <script type="text/javascript">
+	   		$(".myButton").click(function(){
+	   			$('#result').text(' Predicting...');
+
+	   			var $SCRIPT_ROOT = {{request.script_root|tojson|safe}};
+
+				// 返回一个包含图片展示的 data URI , data:image/png;base64,iVBORw
+	   			var canvasObj = document.getElementById("canvas");
+	   			var img = canvasObj.toDataURL('image/png');
+				console.log(img)
+	   			$.ajax({
+	   				type: "POST",
+	   				url: $SCRIPT_ROOT + "/predict/",
+	   				data: img,
+	   				success: function(data){
+	   					$('#result').text('Predicted Output: ' + data.split(',')[0]);
+						$('#prob1').text('number '+ data.split(',')[1]+' : '+ data.split(',')[2])
+						$('#prob2').text('number '+ data.split(',')[3]+' : '+ data.split(',')[4])
+						$('#prob3').text('number '+ data.split(',')[5]+' : '+ data.split(',')[6])
+	   				}
+	   			});
+	   		});
+	   </script>
+</body>
+</html>
