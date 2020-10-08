@@ -8,7 +8,7 @@
 + model info（20 layers in total） 
 + model definition at `cnn.ipynb`
 
-![Image](https://cvws.icloud-content.com/B/AawllZfE2np1NKc7G4wam_MKusAkAXglf7WYhCU8f6Yd0AuIW5vuLklG/Digraph.gv.png?o=AggVHg3lgLRtDZ0Zqhyz-2M1WW4Q57zw_XgcU5crus0P&v=1&x=3&a=CAogPcS_zzqtyPx6R9oOTmPedbFMAY6OK-n3FCqRo-V8LMwSaxCs-5ud0C4YzPLSndAuIgEAUgQKusAkWgTuLklGaiWT4thLE5KjeIfM8rQ74-KL9eIPbdelUpqe_p4wvjEvh_1eZLvJciWZnodVLkF563LJdBNiaUL9o5RMKILYP5r0V9DvANf9v8gbkwjD&e=1602084976&fl=&r=f67de870-f327-4c6f-908c-df9ec7439626-1&k=0xa4RkfCGGPjgi4Qot1plQ&ckc=com.apple.clouddocs&ckz=com.apple.CloudDocs&p=47&s=SSjg9i1RDykIHw8gSbvud4AYib8&cd=i)
+![Image](https://github.com/fxs123456/CNN-for-MNIST/blob/master/Digraph.gv/Digraph.gv.png)
 
 
  
